@@ -83,12 +83,10 @@ Route::middleware(['auth'])->group(function () {
         return app()->call([app(AdminController::class), 'organizers']);
     })->name('admin.organizers');
 
-    Route::put('/admin/organizers/{user}/demote', function ($user) {
-        if (auth()->user()->role_id !== 1) {
-            abort(403, 'Unauthorized access.');
-        }
-        return app()->call([app(AdminController::class), 'demoteOrganizer'], ['user' => $user]);
-    })->name('admin.organizers.demote');
+    Route::put('/admin/organizers/{user}/demote', [AdminController::class, 'demoteOrganizer'])
+        ->middleware('auth')
+        ->where('user', '[0-9]+')
+        ->name('admin.organizers.demote');
 
     Route::get('/admin/events', function () {
         if (auth()->user()->role_id !== 1) {

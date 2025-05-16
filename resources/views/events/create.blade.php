@@ -2,6 +2,14 @@
 
 @section('content')
 <div class="min-vh-100 bg-light">
+    <!-- Add loading overlay -->
+    <div id="loadingOverlay" class="loading-overlay d-none">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <p class="mt-3 text-white">Publishing your event...</p>
+        </div>
+    </div>
+    
     <div class="bg-primary">
         @include('components.navbar')
     </div>
@@ -118,7 +126,7 @@
                                 </div>
 
                                 <div class="col-12 mt-5 d-flex justify-content-end">
-                                    <button type="submit" class="btn btn-primary px-5 py-2">
+                                    <button type="submit" class="btn btn-primary px-5 py-2" id="publishButton">
                                         <i class="fas fa-paper-plane me-2"></i>Publish Event
                                     </button>
                                 </div>
@@ -234,6 +242,53 @@ textarea {
 .drop-zone.is-invalid .drop-zone__content i {
     color: #dc3545;
 }
+
+.btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Loading overlay styles */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.loading-content {
+    text-align: center;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-left-color: #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-content p {
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
 </style>
 
 <script>
@@ -285,6 +340,28 @@ document.addEventListener('DOMContentLoaded', function() {
             reader.readAsDataURL(file);
         }
     }
+
+    // Add form submission handler
+    const form = document.querySelector('form');
+    const publishButton = document.getElementById('publishButton');
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    
+    form.addEventListener('submit', function(e) {
+        // Prevent the default form submission
+        e.preventDefault();
+        
+        // Disable the button immediately
+        publishButton.disabled = true;
+        publishButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Publishing...';
+        
+        // Show loading overlay
+        loadingOverlay.classList.remove('d-none');
+        
+        // Submit the form after a brief delay to ensure UI updates
+        setTimeout(() => {
+            this.submit();
+        }, 10);
+    });
 });
 </script>
 @endsection

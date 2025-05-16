@@ -40,7 +40,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <p class="text-muted mb-1">Organizers</p>
-                        <h2 class="display-4 fw-bold mb-0">{{ $approvedApplications ?? 0 }}</h2>
+                        <h2 class="display-4 fw-bold mb-0">{{ $activeOrganizers ?? 0 }}</h2>
                         <small class="text-muted">Active organizers</small>
                     </div>
                     <div class="rounded-circle bg-success bg-opacity-10 p-3">

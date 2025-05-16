@@ -110,7 +110,11 @@ class EventController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        $imagePath = $request->file('image')->store('event-images', 'public');
+        // Handle image upload
+        $image = $request->file('image');
+        $imageName = time() . '.' . $image->extension();
+        $image->move(public_path('images/events'), $imageName);
+        $imagePath = 'images/events/' . $imageName;
 
         $event = Event::create([
             'title' => $request->title,

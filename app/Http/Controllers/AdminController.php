@@ -11,9 +11,11 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
+        // Get pending applications count
         $pendingApplications = OrganizerApplication::where('status', 'pending')->count();
-        $approvedApplications = OrganizerApplication::where('status', 'approved')->count();
-        $rejectedApplications = OrganizerApplication::where('status', 'rejected')->count();
+        
+        // Get active organizers count (users with role_id = 2)
+        $activeOrganizers = User::where('role_id', 2)->count();
         
         // Get active events (future date)
         $activeEvents = Event::where('date', '>=', now()->format('Y-m-d'))
@@ -25,8 +27,7 @@ class AdminController extends Controller
         
         return view('admin.dashboard', compact(
             'pendingApplications', 
-            'approvedApplications', 
-            'rejectedApplications',
+            'activeOrganizers',
             'activeEvents',
             'inactiveEvents'
         ));
@@ -46,11 +47,19 @@ class AdminController extends Controller
 
     public function demoteOrganizer(User $user)
     {
-        if ($user->role_id === 2) {
-            $user->update(['role_id' => 3]); // Change to regular user role
+        if (auth()->user()->role_id !== 1) {
+            abort(403, 'Unauthorized access.');
         }
-        
-        return redirect()->back()->with('success', 'User has been demoted from organizer role.');
+
+        try {
+            if ($user->role_id === 2) {
+                $user->update(['role_id' => 3]); // Change to regular user role
+                return redirect()->back()->with('success', 'User has been demoted from organizer role.');
+            }
+            return redirect()->back()->with('error', 'User is not an organizer.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to demote user: ' . $e->getMessage());
+        }
     }
 
     public function events()
