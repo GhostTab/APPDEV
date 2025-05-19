@@ -66,7 +66,7 @@ class AdminController extends Controller
     {
         $events = Event::with('user')
             ->latest()
-            ->paginate(10);
+            ->paginate(100);
         
         return view('admin.events', compact('events'));
     }

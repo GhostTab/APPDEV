@@ -167,8 +167,7 @@
     }
     
     .btn-primary:hover {
-        background-color: #0b5ed7;
-        transform: translateY(-2px);
+        background-color: #0A2F86FF;
     }
 </style>
 

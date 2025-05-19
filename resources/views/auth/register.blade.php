@@ -158,10 +158,10 @@
                                     <input type="text" class="form-control form-control-lg" name="first_name" placeholder="First Name" pattern="[A-Za-z\s]+" title="Only letters are allowed" style="font-family: 'Poppins', sans-serif;" required>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control form-control-lg" name="middle_name" placeholder="Middle Name" pattern="[A-Za-z\s]*" title="Only letters are allowed" style="font-family: 'Poppins', sans-serif;">
+                                    <input type="text" class="form-control form-control-lg" name="middle_name" placeholder="Middle Name" title="Only letters are allowed" style="font-family: 'Poppins', sans-serif;">
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control form-control-lg" name="last_name" placeholder="Last Name" pattern="[A-Za-z\s]+" title="Only letters are allowed" style="font-family: 'Poppins', sans-serif;" required>
+                                    <input type="text" class="form-control form-control-lg" name="last_name" placeholder="Last Name"  title="Only letters are allowed" style="font-family: 'Poppins', sans-serif;" required>
                                 </div>
                             </div>
                             <div class="mb-3">

@@ -34,14 +34,6 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="sort-filter">
-                        <select class="form-select" name="sort" id="sortFilter">
-                            <option value="newest" {{ request('sort') == 'newest' ? 'selected' : '' }}>Newest First</option>
-                            <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Oldest First</option>
-                            <option value="name_asc" {{ request('sort') == 'name_asc' ? 'selected' : '' }}>Name (A-Z)</option>
-                            <option value="name_desc" {{ request('sort') == 'name_desc' ? 'selected' : '' }}>Name (Z-A)</option>
-                        </select>
-                    </div>
                 </form>
             </div>
         </div>

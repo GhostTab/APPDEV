@@ -2,7 +2,6 @@
 
 @section('content')
 <div class="min-vh-100 bg-light">
-    <!-- Add loading overlay -->
     <div id="loadingOverlay" class="loading-overlay d-none">
         <div class="loading-content">
             <div class="spinner"></div>
@@ -291,6 +290,7 @@ textarea {
 }
 </style>
 
+@section('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const dropZone = document.querySelector('.drop-zone');

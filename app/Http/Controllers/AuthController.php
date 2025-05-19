@@ -13,16 +13,16 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'first_name' => ['required', 'regex:/^[A-Za-z\s]+$/', 'max:55'],
-            'middle_name' => ['nullable', 'regex:/^[A-Za-z\s]*$/', 'max:55'],
-            'last_name' => ['required', 'regex:/^[A-Za-z\s]+$/', 'max:55'],
+            'first_name' => ['required', 'regex:/^[A-Za-z\s\.\-]+$/', 'min:2', 'max:20'],
+            'middle_name' => ['nullable', 'regex:/^[A-Za-z\s\.\-]*$/', 'min:2', 'max:20'],
+            'last_name' => ['required', 'regex:/^[A-Za-z\s\.\-]+$/', 'min:2', 'max:20'],
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8|confirmed',
             'terms' => 'required|accepted'
         ], [
-            'first_name.regex' => 'First name can only contain letters and spaces',
-            'middle_name.regex' => 'Middle name can only contain letters and spaces',
-            'last_name.regex' => 'Last name can only contain letters and spaces',
+            'first_name.regex' => 'First name can only contain letters, spaces, dots, and dashes',
+            'middle_name.regex' => 'Middle name can only contain letters, spaces, dots, and dashes',
+            'last_name.regex' => 'Last name can only contain letters, spaces, dots, and dashes',
             'terms.required' => 'You must accept the Terms and Conditions'
         ]);
 
